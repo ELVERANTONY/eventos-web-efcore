@@ -1,0 +1,111 @@
+@model Eventos.Web.Models.Evento
+
+@{
+    ViewData["Title"] = "Detalles del Evento";
+    var inscripcionesConfirmadas = Model.Inscripciones.Where(i => i.Estado == "Confirmada").ToList();
+    var cuposDisponibles = Model.Aforo - inscripcionesConfirmadas.Count;
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-9">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <h4 class="mb-0"><i class="bi bi-info-circle me-2"></i>Detalles del Evento</h4>
+                <span class="badge @(Model.Modalidad == "Presencial" ? "bg-primary" : "bg-info text-dark") fs-6">
+                    @Model.Modalidad
+                </span>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title text-primary fw-bold mb-3">@Model.Titulo</h3>
+                
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <p class="mb-1 text-muted">Categoría:</p>
+                        <h6 class="fw-bold">@(Model.Categoria?.Nombre ?? "Sin categoría")</h6>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-1 text-muted">Fecha y Hora:</p>
+                        <h6 class="fw-bold">@Model.Fecha.ToString("dd/MM/yyyy HH:mm")</h6>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-1 text-muted">Lugar / Plataforma:</p>
+                        <h6 class="fw-bold">@Model.Lugar</h6>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="mb-1 text-muted">Precio de Entrada:</p>
+                        <h6 class="fw-bold text-success">@Model.Precio.ToString("C2")</h6>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="mb-1 text-muted">Aforo Total:</p>
+                        <h6 class="fw-bold">@Model.Aforo personas</h6>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="mb-1 text-muted">Inscritos Confirmados:</p>
+                        <h6 class="fw-bold text-primary">@inscripcionesConfirmadas.Count</h6>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="mb-1 text-muted">Cupos Restantes:</p>
+                        <h6 class="fw-bold @(cuposDisponibles <= 0 ? "text-danger" : "text-success")">
+                            @(cuposDisponibles <= 0 ? "Agotado" : cuposDisponibles.ToString())
+                        </h6>
+                    </div>
+                </div>
+
+                <hr />
+
+                <h5 class="fw-bold mt-4 mb-3">
+                    <i class="bi bi-people me-2"></i>Asistentes con Inscripción Confirmada (@inscripcionesConfirmadas.Count)
+                </h5>
+
+                @if (!inscripcionesConfirmadas.Any())
+                {
+                    <div class="alert alert-light border text-muted">
+                        Aún no hay asistentes inscritos en este evento.
+                    </div>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Asistente</th>
+                                    <th>DNI</th>
+                                    <th>Correo Electrónico</th>
+                                    <th>Teléfono</th>
+                                    <th>Fecha de Inscripción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var ins in inscripcionesConfirmadas)
+                                {
+                                    <tr>
+                                        <td>@(ins.Asistente?.Nombres ?? "N/A")</td>
+                                        <td>@(ins.Asistente?.Dni ?? "N/A")</td>
+                                        <td>@(ins.Asistente?.Correo ?? "N/A")</td>
+                                        <td>@(ins.Asistente?.Telefono ?? "-")</td>
+                                        <td>@ins.FechaInscripcion.ToString("dd/MM/yyyy HH:mm")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left me-1"></i>Regresar a la Lista
+                    </a>
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">
+                            <i class="bi bi-pencil me-1"></i>Editar
+                        </a>
+                        <a asp-controller="Inscripciones" asp-action="Create" class="btn btn-success">
+                            <i class="bi bi-plus-circle me-1"></i>Inscribir Asistente
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

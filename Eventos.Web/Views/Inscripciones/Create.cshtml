@@ -1,0 +1,55 @@
+@model Eventos.Web.Models.Inscripcion
+
+@{
+    ViewData["Title"] = "Nueva Inscripción";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0"><i class="bi bi-ticket-perforated me-2"></i>Registrar Inscripción a Evento</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="EventoId" class="form-label fw-bold">Seleccionar Evento Activo</label>
+                        <select asp-for="EventoId" asp-items="ViewBag.EventoId" class="form-select">
+                            <option value="">-- Seleccione un Evento --</option>
+                        </select>
+                        <span asp-validation-for="EventoId" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="AsistenteId" class="form-label fw-bold">Seleccionar Asistente Activo</label>
+                        <select asp-for="AsistenteId" asp-items="ViewBag.AsistenteId" class="form-select">
+                            <option value="">-- Seleccione un Asistente --</option>
+                        </select>
+                        <span asp-validation-for="AsistenteId" class="text-danger"></span>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-1"></i>
+                        La inscripción se registrará automáticamente en estado <strong>Confirmada</strong> con fecha y hora actual.
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Regresar
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check-circle me-1"></i>Confirmar Inscripción
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

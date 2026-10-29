@@ -1,0 +1,112 @@
+@model IEnumerable<Eventos.Web.Models.Evento>
+
+@{
+    ViewData["Title"] = "Gestión de Eventos";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-calendar-event me-2"></i>Eventos Disponibles</h2>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i>Nuevo Evento
+    </a>
+</div>
+
+<!-- Filtro por Categoría -->
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <form method="get" asp-action="Index" class="row g-3 align-items-end">
+            <div class="col-md-5">
+                <label class="form-label fw-bold">Filtrar por Categoría:</label>
+                <select name="categoriaId" asp-items="ViewBag.Categorias" class="form-select">
+                    <option value="">-- Todas las Categorías --</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-secondary me-2">
+                    <i class="bi bi-funnel me-1"></i>Filtrar
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-counterclockwise me-1"></i>Limpiar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="table-responsive shadow-sm rounded">
+    <table class="table table-striped table-hover align-middle mb-0">
+        <thead class="table-dark">
+            <tr>
+                <th>Título</th>
+                <th>Categoría</th>
+                <th>Fecha</th>
+                <th>Lugar</th>
+                <th>Modalidad</th>
+                <th>Aforo</th>
+                <th>Precio</th>
+                <th class="text-center">Inscritos</th>
+                <th class="text-center">Cupos Disp.</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="10" class="text-center py-4 text-muted">
+                        No se encontraron eventos activos para la selección actual.
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model)
+            {
+                var inscritosConfirmados = item.Inscripciones.Count(i => i.Estado == "Confirmada");
+                var cuposDisponibles = item.Aforo - inscritosConfirmados;
+                <tr>
+                    <td class="fw-bold">@item.Titulo</td>
+                    <td><span class="badge bg-secondary">@(item.Categoria?.Nombre ?? "Sin categoría")</span></td>
+                    <td>@item.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@item.Lugar</td>
+                    <td>
+                        @if (item.Modalidad == "Presencial")
+                        {
+                            <span class="badge bg-primary">Presencial</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-info text-dark">Virtual</span>
+                        }
+                    </td>
+                    <td>@item.Aforo</td>
+                    <td>@item.Precio.ToString("C2")</td>
+                    <td class="text-center">
+                        <span class="badge bg-light text-dark border">@inscritosConfirmados</span>
+                    </td>
+                    <td class="text-center">
+                        @if (cuposDisponibles <= 0)
+                        {
+                            <span class="badge bg-danger">Agotado</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">@cuposDisponibles</span>
+                        }
+                    </td>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info" title="Detalles">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning" title="Editar">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger" title="Eliminar">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

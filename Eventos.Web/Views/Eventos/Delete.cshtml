@@ -1,0 +1,41 @@
+@model Eventos.Web.Models.Evento
+
+@{
+    ViewData["Title"] = "Eliminar Evento";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0"><i class="bi bi-exclamation-triangle me-2"></i>Confirmar Eliminación</h4>
+            </div>
+            <div class="card-body">
+                <p class="lead">¿Estás seguro de que deseas dar de baja el siguiente evento?</p>
+                <div class="alert alert-warning">
+                    <i class="bi bi-info-circle me-1"></i>
+                    <strong>Nota:</strong> Se aplicará una <strong>eliminación lógica</strong> (el evento dejará de mostrarse en la plataforma activa y no se eliminarán registros físicos).
+                </div>
+
+                <ul class="list-group list-group-flush mb-4">
+                    <li class="list-group-item"><strong>Título:</strong> @Model.Titulo</li>
+                    <li class="list-group-item"><strong>Categoría:</strong> @(Model.Categoria?.Nombre ?? "Sin categoría")</li>
+                    <li class="list-group-item"><strong>Fecha:</strong> @Model.Fecha.ToString("dd/MM/yyyy HH:mm")</li>
+                    <li class="list-group-item"><strong>Lugar:</strong> @Model.Lugar</li>
+                    <li class="list-group-item"><strong>Modalidad:</strong> @Model.Modalidad</li>
+                </ul>
+
+                <form asp-action="Delete" method="post" class="d-flex justify-content-between">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="Id" />
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left me-1"></i>Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i>Confirmar Eliminación Lógica
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
