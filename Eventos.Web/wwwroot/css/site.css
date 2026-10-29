@@ -1,36 +1,38 @@
 /* ========================================================
-   EVENTOS.WEB - SISTEMA DE DISEÑO MODERNO & SAAS
+   EVENTOS.WEB - SISTEMA DE DISEÑO CORPORATIVO (NAVY & STEEL BLUE)
    ======================================================== */
 
 :root {
-    --primary: #4f46e5;
-    --primary-hover: #4338ca;
-    --primary-subtle: #eef2ff;
-    --primary-text: #3730a3;
+    /* Paleta Corporativa Masculina: Azul Marino & Acero */
+    --primary: #1e40af;            /* Azul marino profundo */
+    --primary-hover: #1e3a8a;      /* Navy intenso */
+    --primary-accent: #2563eb;     /* Azul cobalto */
+    --primary-subtle: #eff6ff;     /* Azul hielo tenue */
+    --primary-text: #1e3a8a;
     
-    --secondary: #64748b;
+    --secondary: #475569;          /* Gris pizarra acero */
     --secondary-subtle: #f1f5f9;
     
-    --success: #10b981;
+    --success: #059669;            /* Verde esmeralda */
     --success-subtle: #ecfdf5;
     --success-text: #065f46;
     
-    --info: #0ea5e9;
+    --info: #0284c7;               /* Azul cielo / cian profesional */
     --info-subtle: #f0f9ff;
     --info-text: #0369a1;
     
-    --warning: #f59e0b;
+    --warning: #d97706;            /* Ámbar */
     --warning-subtle: #fffbeb;
     --warning-text: #92400e;
     
-    --danger: #ef4444;
+    --danger: #dc2626;             /* Carmesí */
     --danger-subtle: #fef2f2;
     --danger-text: #991b1b;
     
     --bg-body: #f8fafc;
     --card-bg: #ffffff;
     --border-color: #e2e8f0;
-    --text-main: #0f172a;
+    --text-main: #0f172a;          /* Slate oscuro */
     --text-muted: #64748b;
     
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -49,30 +51,30 @@ body {
 }
 
 /* ========================================================
-   NAVBAR MODERNA (BLANCA / LIMPIA)
+   NAVBAR LIMPIA Y SOBRIA (AZUL MARINO & BLANCO)
    ======================================================== */
 .navbar-custom {
     background-color: #ffffff;
     border-bottom: 1px solid var(--border-color);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.03);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
     padding: 0.85rem 0;
 }
 
 .brand-icon-box {
     width: 38px;
     height: 38px;
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
     color: #ffffff;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.15rem;
-    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.35);
+    box-shadow: 0 2px 8px rgba(30, 58, 138, 0.35);
 }
 
 .brand-title {
-    font-weight: 700;
+    font-weight: 800;
     font-size: 1.2rem;
     color: #0f172a;
     letter-spacing: -0.5px;
@@ -86,11 +88,12 @@ body {
     padding: 2px 8px;
     border-radius: 6px;
     letter-spacing: 0.3px;
+    border: 1px solid #dbeafe;
 }
 
 .navbar-custom .nav-link {
-    font-weight: 500;
-    font-size: 0.95rem;
+    font-weight: 600;
+    font-size: 0.92rem;
     color: #475569 !important;
     padding: 0.5rem 1rem !important;
     border-radius: 8px;
@@ -108,7 +111,7 @@ body {
 .navbar-custom .nav-link.active {
     color: var(--primary) !important;
     background-color: var(--primary-subtle);
-    font-weight: 600;
+    font-weight: 700;
 }
 
 /* ========================================================
@@ -117,7 +120,7 @@ body {
 .card-modern {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
+    border-radius: 14px;
     box-shadow: var(--shadow-sm);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
@@ -125,18 +128,18 @@ body {
 .card-modern-header {
     background-color: #ffffff;
     border-bottom: 1px solid var(--border-color);
-    padding: 1.25rem 1.5rem;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+    padding: 1.2rem 1.4rem;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
 }
 
 /* ========================================================
-   TABLAS MODERNAS (SIN FONDO NEGRO)
+   TABLAS CORPORATIVAS
    ======================================================== */
 .table-card {
     background: #ffffff;
     border: 1px solid var(--border-color);
-    border-radius: 16px;
+    border-radius: 14px;
     overflow: hidden;
     box-shadow: var(--shadow-sm);
 }
@@ -148,9 +151,9 @@ body {
 
 .table-modern thead th {
     background-color: #f8fafc;
-    color: #475569;
-    font-weight: 600;
-    font-size: 0.8rem;
+    color: #334155;
+    font-weight: 700;
+    font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 0.6px;
     border-bottom: 1px solid var(--border-color);
@@ -159,7 +162,7 @@ body {
 }
 
 .table-modern tbody td {
-    padding: 1rem 1.1rem;
+    padding: 0.95rem 1.1rem;
     border-bottom: 1px solid #f1f5f9;
     color: #1e293b;
     font-size: 0.92rem;
@@ -174,91 +177,73 @@ body {
 }
 
 /* ========================================================
-   BADGES (PASTEL / SUAVE)
+   BADGES (AZULES, ACEROS Y NEUTROS)
    ======================================================== */
 .badge-soft {
-    padding: 0.4em 0.8em;
+    padding: 0.38em 0.8em;
     font-weight: 600;
     font-size: 0.8rem;
-    border-radius: 30px;
+    border-radius: 6px;
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
 }
 
 .badge-soft-primary {
-    background-color: #e0e7ff;
-    color: #3730a3;
-    border: 1px solid #c7d2fe;
+    background-color: #eff6ff;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
 }
 
 .badge-soft-info {
-    background-color: #e0f2fe;
+    background-color: #f0f9ff;
     color: #0369a1;
     border: 1px solid #bae6fd;
 }
 
 .badge-soft-success {
-    background-color: #d1fae5;
+    background-color: #ecfdf5;
     color: #065f46;
     border: 1px solid #a7f3d0;
 }
 
 .badge-soft-warning {
-    background-color: #fef3c7;
+    background-color: #fffbeb;
     color: #92400e;
     border: 1px solid #fde68a;
 }
 
 .badge-soft-danger {
-    background-color: #fee2e2;
+    background-color: #fef2f2;
     color: #991b1b;
     border: 1px solid #fecaca;
 }
 
 .badge-soft-secondary {
     background-color: #f1f5f9;
-    color: #475569;
+    color: #334155;
     border: 1px solid #e2e8f0;
-}
-
-.badge-category-tech {
-    background-color: #ede9fe;
-    color: #5b21b6;
-    border: 1px solid #ddd6fe;
-}
-
-.badge-category-biz {
-    background-color: #fef3c7;
-    color: #92400e;
-    border: 1px solid #fde68a;
-}
-
-.badge-category-design {
-    background-color: #fce7f3;
-    color: #9d174d;
-    border: 1px solid #fbcfe8;
 }
 
 /* ========================================================
    BOTONES
    ======================================================== */
 .btn-primary-modern {
-    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
     color: #ffffff;
     border: none;
     font-weight: 600;
     padding: 0.55rem 1.25rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(79, 70, 229, 0.25);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(30, 58, 138, 0.25);
     transition: all 0.2s ease;
 }
 
 .btn-primary-modern:hover {
-    background: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+    background: linear-gradient(135deg, #172554 0%, #1d4ed8 100%);
     color: #ffffff;
     transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(79, 70, 229, 0.35);
+    box-shadow: 0 4px 8px rgba(30, 58, 138, 0.35);
 }
 
 .btn-action {
@@ -268,7 +253,7 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    border-radius: 6px;
     border: 1px solid transparent;
     transition: all 0.15s ease;
     font-size: 0.9rem;
@@ -313,7 +298,7 @@ body {
 }
 
 .form-control, .form-select {
-    border-radius: 10px;
+    border-radius: 8px;
     border: 1px solid var(--border-color);
     padding: 0.6rem 0.85rem;
     font-size: 0.95rem;
@@ -321,6 +306,6 @@ body {
 }
 
 .form-control:focus, .form-select:focus {
-    border-color: #818cf8;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
