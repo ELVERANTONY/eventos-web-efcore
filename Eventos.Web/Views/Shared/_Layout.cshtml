@@ -4,37 +4,51 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Eventos.Web</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Eventos.Web.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-4">
+        <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
             <div class="container">
-                <a class="navbar-brand fw-bold" asp-area="" asp-controller="Eventos" asp-action="Index">
-                    <i class="bi bi-calendar-event me-2"></i>Eventos.Web
+                <a class="navbar-brand d-flex align-items-center gap-2" asp-controller="Eventos" asp-action="Index">
+                    <div class="brand-icon-box">
+                        <i class="bi bi-calendar2-check-fill"></i>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="brand-title">Eventos<span class="text-primary">.Web</span></span>
+                        <span class="brand-tag d-none d-sm-inline-block">EF Core Code First</span>
+                    </div>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-1">
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Eventos" asp-action="Index">
-                                <i class="bi bi-calendar-check me-1"></i>Eventos
+                                <i class="bi bi-calendar-event"></i> Eventos
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Asistentes" asp-action="Index">
-                                <i class="bi bi-people me-1"></i>Asistentes
+                                <i class="bi bi-people"></i> Asistentes
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Inscripciones" asp-action="Index">
-                                <i class="bi bi-ticket-perforated me-1"></i>Inscripciones
+                                <i class="bi bi-ticket-perforated"></i> Inscripciones
                             </a>
                         </li>
                     </ul>
@@ -42,24 +56,33 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+
+    <div class="container py-4 flex-grow-1">
         @if (TempData["Mensaje"] != null)
         {
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-circle-fill me-2"></i>@TempData["Mensaje"]
+            <div class="alert alert-success alert-dismissible fade show shadow-sm border-0 d-flex align-items-center gap-2 mb-4" role="alert">
+                <i class="bi bi-check-circle-fill fs-5 text-success"></i>
+                <div class="flex-grow-1 fw-medium">@TempData["Mensaje"]</div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         }
-        <main role="main" class="pb-3">
+
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted py-3 mt-5">
-        <div class="container text-center">
-            &copy; 2026 - Eventos.Web (EF Core Code First - SEMANA 11) - Desarrollo de Aplicaciones Empresariales Avanzadas
+    <footer class="footer bg-white border-top py-3 mt-auto">
+        <div class="container d-flex flex-wrap justify-content-between align-items-center text-muted small">
+            <div>
+                &copy; 2026 <strong>Eventos.Web</strong> &mdash; Gestión de Eventos e Inscripciones
+            </div>
+            <div>
+                Desarrollo de Aplicaciones Empresariales Avanzadas (Semana 11)
+            </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

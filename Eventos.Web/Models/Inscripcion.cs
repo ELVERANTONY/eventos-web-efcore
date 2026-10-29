@@ -22,3 +22,4 @@ public class Inscripcion
     [StringLength(20)]
     public string Estado { get; set; } = "Confirmada"; // Confirmada o Cancelada
 }
+

@@ -96,3 +96,4 @@ public class InscripcionesController : Controller
             "Id", "Info", asistenteId);
     }
 }
+

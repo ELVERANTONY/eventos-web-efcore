@@ -14,3 +14,4 @@ public class EventosContext : DbContext
     public DbSet<Asistente> Asistentes => Set<Asistente>();
     public DbSet<Inscripcion> Inscripciones => Set<Inscripcion>();
 }
+

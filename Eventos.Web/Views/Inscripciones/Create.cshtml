@@ -5,43 +5,51 @@
 }
 
 <div class="row justify-content-center">
-    <div class="col-md-7">
-        <div class="card shadow-sm">
-            <div class="card-header bg-success text-white">
-                <h4 class="mb-0"><i class="bi bi-ticket-perforated me-2"></i>Registrar Inscripción a Evento</h4>
+    <div class="col-lg-7">
+        <div class="card card-modern">
+            <div class="card-modern-header d-flex align-items-center justify-content-between">
+                <div>
+                    <h5 class="fw-bold mb-0 text-dark">
+                        <i class="bi bi-ticket-perforated text-success me-2"></i>Registrar Nueva Inscripción
+                    </h5>
+                    <small class="text-muted">Asocia un asistente a un evento disponible</small>
+                </div>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-sm rounded-3">
+                    <i class="bi bi-arrow-left me-1"></i>Volver
+                </a>
             </div>
-            <div class="card-body">
+            <div class="card-body p-4">
                 <form asp-action="Create" method="post">
                     @Html.AntiForgeryToken()
-                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-3 py-2"></div>
 
                     <div class="mb-3">
-                        <label asp-for="EventoId" class="form-label fw-bold">Seleccionar Evento Activo</label>
+                        <label asp-for="EventoId" class="form-label">Evento Activo</label>
                         <select asp-for="EventoId" asp-items="ViewBag.EventoId" class="form-select">
-                            <option value="">-- Seleccione un Evento --</option>
+                            <option value="">-- Seleccionar Evento --</option>
                         </select>
-                        <span asp-validation-for="EventoId" class="text-danger"></span>
+                        <span asp-validation-for="EventoId" class="text-danger small"></span>
                     </div>
 
                     <div class="mb-4">
-                        <label asp-for="AsistenteId" class="form-label fw-bold">Seleccionar Asistente Activo</label>
+                        <label asp-for="AsistenteId" class="form-label">Asistente Activo</label>
                         <select asp-for="AsistenteId" asp-items="ViewBag.AsistenteId" class="form-select">
-                            <option value="">-- Seleccione un Asistente --</option>
+                            <option value="">-- Seleccionar Asistente --</option>
                         </select>
-                        <span asp-validation-for="AsistenteId" class="text-danger"></span>
+                        <span asp-validation-for="AsistenteId" class="text-danger small"></span>
                     </div>
 
-                    <div class="alert alert-info">
-                        <i class="bi bi-info-circle me-1"></i>
-                        La inscripción se registrará automáticamente en estado <strong>Confirmada</strong> con fecha y hora actual.
+                    <div class="alert alert-light border d-flex align-items-center gap-2 mb-4 text-muted small">
+                        <i class="bi bi-info-circle-fill text-primary fs-5"></i>
+                        <div>
+                            La inscripción se creará en estado <strong>Confirmada</strong> y se reservará automáticamente una vacante en el aforo del evento.
+                        </div>
                     </div>
 
-                    <div class="d-flex justify-content-between">
-                        <a asp-action="Index" class="btn btn-secondary">
-                            <i class="bi bi-arrow-left me-1"></i>Regresar
-                        </a>
-                        <button type="submit" class="btn btn-success">
-                            <i class="bi bi-check-circle me-1"></i>Confirmar Inscripción
+                    <div class="d-flex justify-content-end gap-2 pt-3 border-top">
+                        <a asp-action="Index" class="btn btn-light rounded-3 px-3">Cancelar</a>
+                        <button type="submit" class="btn btn-primary-modern px-4">
+                            <i class="bi bi-check-lg me-1"></i>Confirmar Inscripción
                         </button>
                     </div>
                 </form>

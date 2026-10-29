@@ -16,3 +16,4 @@ public class Categoria
 
     public ICollection<Evento> Eventos { get; set; } = new List<Evento>();
 }
+

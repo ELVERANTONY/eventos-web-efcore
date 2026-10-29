@@ -4,80 +4,101 @@
     ViewData["Title"] = "Gestión de Inscripciones";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2><i class="bi bi-ticket-perforated me-2"></i>Historial de Inscripciones</h2>
-    <a asp-action="Create" class="btn btn-success">
-        <i class="bi bi-plus-circle me-1"></i>Nueva Inscripción
+<!-- Cabecera de Página -->
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <h2 class="fw-bold mb-1 d-flex align-items-center gap-2">
+            <i class="bi bi-ticket-perforated text-primary"></i> Control de Inscripciones
+        </h2>
+        <p class="text-muted mb-0">Registro y estado de participantes en cada evento.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary-modern">
+        <i class="bi bi-plus-lg me-1"></i> Nueva Inscripción
     </a>
 </div>
 
-<div class="table-responsive shadow-sm rounded">
-    <table class="table table-striped table-hover align-middle mb-0">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Evento</th>
-                <th>Asistente</th>
-                <th>Fecha de Inscripción</th>
-                <th class="text-center">Estado</th>
-                <th class="text-center">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (!Model.Any())
-            {
+<!-- Tabla de Inscripciones -->
+<div class="table-card">
+    <div class="table-responsive">
+        <table class="table table-modern">
+            <thead>
                 <tr>
-                    <td colspan="6" class="text-center py-4 text-muted">
-                        No hay inscripciones registradas en el sistema.
-                    </td>
+                    <th>ID</th>
+                    <th>Evento</th>
+                    <th>Asistente</th>
+                    <th>Fecha Registro</th>
+                    <th class="text-center">Estado</th>
+                    <th class="text-center">Acciones</th>
                 </tr>
-            }
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>#@item.Id</td>
-                    <td>
-                        <div class="fw-bold">@(item.Evento?.Titulo ?? "Evento no disponible")</div>
-                        <small class="text-muted">
-                            <i class="bi bi-calendar me-1"></i>@(item.Evento != null ? item.Evento.Fecha.ToString("dd/MM/yyyy HH:mm") : "-")
-                            | <span class="badge bg-light text-dark border">@(item.Evento?.Modalidad ?? "-")</span>
-                        </small>
-                    </td>
-                    <td>
-                        <div class="fw-bold">@(item.Asistente?.Nombres ?? "Asistente no disponible")</div>
-                        <small class="text-muted">
-                            DNI: @(item.Asistente?.Dni ?? "-") | @(item.Asistente?.Correo ?? "-")
-                        </small>
-                    </td>
-                    <td>@item.FechaInscripcion.ToString("dd/MM/yyyy HH:mm")</td>
-                    <td class="text-center">
-                        @if (item.Estado == "Confirmada")
-                        {
-                            <span class="badge bg-success">Confirmada</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-secondary">Cancelada</span>
-                        }
-                    </td>
-                    <td class="text-center">
-                        @if (item.Estado == "Confirmada")
-                        {
-                            <form asp-action="Cancelar" asp-route-id="@item.Id" method="post" class="d-inline"
-                                  onsubmit="return confirm('¿Seguro que deseas cancelar esta inscripción?');">
-                                @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-outline-danger btn-sm" title="Cancelar Inscripción">
-                                    <i class="bi bi-x-circle me-1"></i>Cancelar
-                                </button>
-                            </form>
-                        }
-                        else
-                        {
-                            <span class="text-muted small">Sin acciones</span>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            <i class="bi bi-inbox fs-1 d-block mb-2 text-secondary"></i>
+                            No hay inscripciones registradas en el sistema.
+                        </td>
+                    </tr>
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><span class="text-muted fw-bold">#@item.Id</span></td>
+                        <td>
+                            <div class="fw-bold text-dark">@(item.Evento?.Titulo ?? "Evento no disponible")</div>
+                            <small class="text-muted d-flex align-items-center gap-2 mt-1">
+                                <span><i class="bi bi-calendar me-1"></i>@(item.Evento != null ? item.Evento.Fecha.ToString("dd/MM/yyyy HH:mm") : "-")</span>
+                                <span>&bull;</span>
+                                <span class="badge-soft @(item.Evento?.Modalidad == "Presencial" ? "badge-soft-info" : "badge-soft-success") py-0 px-2" style="font-size: 0.72rem;">
+                                    @(item.Evento?.Modalidad ?? "-")
+                                </span>
+                            </small>
+                        </td>
+                        <td>
+                            <div class="fw-bold text-dark">@(item.Asistente?.Nombres ?? "Asistente no disponible")</div>
+                            <small class="text-muted">
+                                DNI: <code>@(item.Asistente?.Dni ?? "-")</code> &bull; @(item.Asistente?.Correo ?? "-")
+                            </small>
+                        </td>
+                        <td>
+                            <span class="text-muted">
+                                <i class="bi bi-clock me-1"></i>@item.FechaInscripcion.ToString("dd/MM/yyyy HH:mm")
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            @if (item.Estado == "Confirmada")
+                            {
+                                <span class="badge-soft badge-soft-success">
+                                    <i class="bi bi-check-circle-fill"></i> Confirmada
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge-soft badge-soft-secondary">
+                                    <i class="bi bi-dash-circle"></i> Cancelada
+                                </span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            @if (item.Estado == "Confirmada")
+                            {
+                                <form asp-action="Cancelar" asp-route-id="@item.Id" method="post" class="d-inline"
+                                      onsubmit="return confirm('¿Confirmas que deseas cancelar esta inscripción?');">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-outline-danger btn-sm rounded-3 py-1 px-2" title="Cancelar Inscripción">
+                                        <i class="bi bi-x-circle me-1"></i>Cancelar
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="text-muted small">&mdash;</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

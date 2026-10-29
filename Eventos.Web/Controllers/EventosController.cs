@@ -124,3 +124,4 @@ public class EventosController : Controller
         ViewBag.Modalidades = new SelectList(modalidades, modalidadSeleccionada ?? "Presencial");
     }
 }
+

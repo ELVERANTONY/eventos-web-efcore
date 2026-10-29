@@ -5,34 +5,33 @@
 }
 
 <div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card shadow-sm border-danger">
-            <div class="card-header bg-danger text-white">
-                <h4 class="mb-0"><i class="bi bi-exclamation-triangle me-2"></i>Confirmar Eliminación</h4>
+    <div class="col-lg-6">
+        <div class="card card-modern border-danger-subtle">
+            <div class="card-modern-header d-flex align-items-center gap-2 text-danger">
+                <i class="bi bi-exclamation-triangle-fill fs-5"></i>
+                <h5 class="fw-bold mb-0">Confirmar Eliminación Lógica</h5>
             </div>
-            <div class="card-body">
-                <p class="lead">¿Estás seguro de que deseas dar de baja el siguiente evento?</p>
-                <div class="alert alert-warning">
-                    <i class="bi bi-info-circle me-1"></i>
-                    <strong>Nota:</strong> Se aplicará una <strong>eliminación lógica</strong> (el evento dejará de mostrarse en la plataforma activa y no se eliminarán registros físicos).
+            <div class="card-body p-4">
+                <p class="text-secondary mb-3">
+                    ¿Estás seguro de que deseas desactivar este evento? El registro se mantendrá en base de datos para preservar el historial, pero ya no aparecerá en el catálogo activo.
+                </p>
+
+                <div class="bg-light p-3 rounded-3 border mb-4">
+                    <h5 class="fw-bold text-dark mb-2">@Model.Titulo</h5>
+                    <div class="row g-2 small text-muted">
+                        <div class="col-6"><strong>Categoría:</strong> @(Model.Categoria?.Nombre ?? "Sin categoría")</div>
+                        <div class="col-6"><strong>Modalidad:</strong> @Model.Modalidad</div>
+                        <div class="col-6"><strong>Fecha:</strong> @Model.Fecha.ToString("dd/MM/yyyy HH:mm")</div>
+                        <div class="col-6"><strong>Lugar:</strong> @Model.Lugar</div>
+                    </div>
                 </div>
 
-                <ul class="list-group list-group-flush mb-4">
-                    <li class="list-group-item"><strong>Título:</strong> @Model.Titulo</li>
-                    <li class="list-group-item"><strong>Categoría:</strong> @(Model.Categoria?.Nombre ?? "Sin categoría")</li>
-                    <li class="list-group-item"><strong>Fecha:</strong> @Model.Fecha.ToString("dd/MM/yyyy HH:mm")</li>
-                    <li class="list-group-item"><strong>Lugar:</strong> @Model.Lugar</li>
-                    <li class="list-group-item"><strong>Modalidad:</strong> @Model.Modalidad</li>
-                </ul>
-
-                <form asp-action="Delete" method="post" class="d-flex justify-content-between">
+                <form asp-action="Delete" method="post" class="d-flex justify-content-end gap-2">
                     @Html.AntiForgeryToken()
                     <input type="hidden" asp-for="Id" />
-                    <a asp-action="Index" class="btn btn-secondary">
-                        <i class="bi bi-arrow-left me-1"></i>Cancelar
-                    </a>
-                    <button type="submit" class="btn btn-danger">
-                        <i class="bi bi-trash me-1"></i>Confirmar Eliminación Lógica
+                    <a asp-action="Index" class="btn btn-light rounded-3 px-3">Cancelar</a>
+                    <button type="submit" class="btn btn-danger rounded-3 px-4">
+                        <i class="bi bi-trash me-1"></i>Confirmar Desactivación
                     </button>
                 </form>
             </div>
